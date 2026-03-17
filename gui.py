@@ -1,3 +1,4 @@
+# -*- coding: gbk -*-
 """
 File Encoding Converter - macOS Style GUI Module
 """
@@ -18,7 +19,7 @@ class MacOSButton(tk.Canvas):
                  bg_color="#007AFF", hover_color="#0051D5",
                  text_color="white", width=120, height=32,
                  font_size=13, is_secondary=False, **kwargs):
-        # æ·»åŠ é˜´å½±åç§»
+        # Ìí¼ÓÒõÓ°Æ«ÒÆ
         self.shadow_offset = 2
         super().__init__(parent, width=width + self.shadow_offset, 
                         height=height + self.shadow_offset,
@@ -32,7 +33,7 @@ class MacOSButton(tk.Canvas):
         self.is_secondary = is_secondary
         self.corner_radius = 6
         
-        # ç»˜åˆ¶é˜´å½±
+        # »æÖÆÒõÓ°
         if not is_secondary:
             self.shadow_rect = self.create_rounded_rect(
                 self.shadow_offset, self.shadow_offset,
@@ -40,14 +41,14 @@ class MacOSButton(tk.Canvas):
                 self.corner_radius, fill="#D1D1D6", outline=""
             )
         
-        # ç»˜åˆ¶æŒ‰é’®èƒŒæ™¯
+        # »æÖÆ°´Å¥±³¾°
         self.rect = self.create_rounded_rect(
             0, 0, width, height,
             self.corner_radius,
             fill=bg_color, outline=""
         )
         
-        # ç»˜åˆ¶æ–‡å­—
+        # »æÖÆÎÄ×Ö
         display_text = f"{icon} {text}" if icon else text
         self.text_item = self.create_text(
             width // 2, height // 2,
@@ -56,7 +57,7 @@ class MacOSButton(tk.Canvas):
             font=("SF Pro Text", font_size) if self._has_sf_pro() else ("Helvetica Neue", font_size)
         )
         
-        # ç»‘å®šäº‹ä»¶
+        # °ó¶¨ÊÂ¼ş
         self.bind("<Enter>", self._on_enter)
         self.bind("<Leave>", self._on_leave)
         self.bind("<Button-1>", self._on_click)
@@ -119,7 +120,7 @@ class MacOSSegmentedButton(tk.Frame):
         self.selected_index = 0
         self.buttons = []
         
-        # å¤–è¾¹æ¡†
+        # Íâ±ß¿ò
         self.outer_frame = tk.Frame(self, bg="#C6C6C8", padx=1, pady=1)
         self.outer_frame.pack()
         
@@ -171,13 +172,13 @@ class MacOSSwitch(tk.Canvas):
         self.command = command
         self.state = initial
         
-        # ç»˜åˆ¶èƒŒæ™¯è½¨é“
+        # »æÖÆ±³¾°¹ìµÀ
         self.track = self.create_rounded_rect(
             0, 2, self.width, self.height - 2, 11,
             fill="#34C759" if initial else "#E5E5EA", outline=""
         )
         
-        # ç»˜åˆ¶åœ†å½¢æ»‘å—
+        # »æÖÆÔ²ĞÎ»¬¿é
         self.knob = self.create_oval(
             2 if initial else self.width - 22, 1,
             22 if initial else self.width - 2, self.height - 1,
@@ -207,7 +208,7 @@ class MacOSSwitch(tk.Canvas):
     def _toggle(self, event=None):
         self.state = not self.state
         
-        # åŠ¨ç”»æ•ˆæœ
+        # ¶¯»­Ğ§¹û
         if self.state:
             self.itemconfig(self.track, fill="#34C759")
             self.coords(self.knob, self.width - 22, 1, self.width - 2, self.height - 1)
@@ -232,18 +233,18 @@ class UIScaleDialog(tk.Toplevel):
     def __init__(self, parent, gui):
         super().__init__(parent)
         self.gui = gui
-        self.title("ç•Œé¢è®¾ç½®")
+        self.title("½çÃæÉèÖÃ")
         self.geometry("420x320")
         self.resizable(False, False)
         self.configure(bg="#F5F5F7")
         
-        # åœ†è§’çª—å£æ•ˆæœï¼ˆæ¨¡æ‹Ÿï¼‰
+        # Ô²½Ç´°¿ÚĞ§¹û£¨Ä£Äâ£©
         self.transient(parent)
         self.grab_set()
         
         self._create_widgets()
         
-        # å±…ä¸­
+        # ¾ÓÖĞ
         self.update_idletasks()
         x = parent.winfo_x() + (parent.winfo_width() - self.winfo_width()) // 2
         y = parent.winfo_y() + (parent.winfo_height() - self.winfo_height()) // 2
@@ -251,22 +252,22 @@ class UIScaleDialog(tk.Toplevel):
     
     def _create_widgets(self):
         """Create dialog widgets with macOS style"""
-        # æ ‡é¢˜
-        tk.Label(self, text="ç•Œé¢è®¾ç½®",
+        # ±êÌâ
+        tk.Label(self, text="½çÃæÉèÖÃ",
                 bg="#F5F5F7",
                 fg="#1D1D1F",
                 font=("SF Pro Display", 18, "bold") if self._has_sf_pro() else ("Helvetica Neue", 18, "bold")
                 ).pack(pady=20)
         
-        # è®¾ç½®å¡ç‰‡
+        # ÉèÖÃ¿¨Æ¬
         card = tk.Frame(self, bg="#FFFFFF", padx=20, pady=20)
         card.pack(fill=tk.X, padx=20, pady=10)
         
-        # å­—ä½“å¤§å°
+        # ×ÖÌå´óĞ¡
         frame1 = tk.Frame(card, bg="#FFFFFF")
         frame1.pack(fill=tk.X, pady=8)
         
-        tk.Label(frame1, text="å­—ä½“å¤§å°",
+        tk.Label(frame1, text="×ÖÌå´óĞ¡",
                 bg="#FFFFFF",
                 fg="#1D1D1F",
                 font=("SF Pro Text", 13) if self._has_sf_pro() else ("Helvetica Neue", 13)
@@ -292,14 +293,14 @@ class UIScaleDialog(tk.Toplevel):
         
         font_scale.config(command=self._on_font_change)
         
-        # åˆ†éš”çº¿
+        # ·Ö¸ôÏß
         tk.Frame(card, bg="#E5E5EA", height=1).pack(fill=tk.X, pady=8)
         
-        # UI ç¼©æ”¾
+        # UI Ëõ·Å
         frame2 = tk.Frame(card, bg="#FFFFFF")
         frame2.pack(fill=tk.X, pady=8)
         
-        tk.Label(frame2, text="ç•Œé¢ç¼©æ”¾",
+        tk.Label(frame2, text="½çÃæËõ·Å",
                 bg="#FFFFFF",
                 fg="#1D1D1F",
                 font=("SF Pro Text", 13) if self._has_sf_pro() else ("Helvetica Neue", 13)
@@ -325,18 +326,18 @@ class UIScaleDialog(tk.Toplevel):
         
         scale_slider.config(command=self._on_scale_change)
         
-        # æŒ‰é’®åŒºåŸŸ
+        # °´Å¥ÇøÓò
         btn_frame = tk.Frame(self, bg="#F5F5F7")
         btn_frame.pack(pady=20)
         
-        MacOSButton(btn_frame, text="é‡ç½®é»˜è®¤",
+        MacOSButton(btn_frame, text="ÖØÖÃÄ¬ÈÏ",
                    command=self._reset_default,
                    bg_color="#FF3B30",
                    hover_color="#D70015",
                    width=100, height=32,
                    font_size=12).pack(side=tk.LEFT, padx=8)
         
-        MacOSButton(btn_frame, text="ç¡®å®š",
+        MacOSButton(btn_frame, text="È·¶¨",
                    command=self._apply_and_close,
                    bg_color="#007AFF",
                    hover_color="#0051D5",
@@ -398,22 +399,22 @@ class EncodingConverterGUI:
     
     # SF Symbols style icons (using Unicode)
     ICONS = {
-        'file': 'ğŸ“„',
-        'folder': 'ğŸ“',
-        'detect': 'ğŸ”',
-        'convert': 'âµ',
-        'clear': 'ğŸ—‘',
-        'select_all': 'â˜‘',
-        'deselect': 'â˜',
-        'batch': 'âš¡',
-        'log': 'ğŸ“',
-        'settings': 'âš™',
+        'file': '?',
+        'folder': '?',
+        'detect': '?',
+        'convert': '?',
+        'clear': '?',
+        'select_all': '?',
+        'deselect': '?',
+        'batch': '?',
+        'log': '?',
+        'settings': '?',
         'help': '?',
-        'info': 'â„¹',
-        'success': 'âœ“',
-        'error': 'âœ•',
-        'warning': 'âš ',
-        'pending': 'â—Œ'
+        'info': '?',
+        'success': '?',
+        'error': '?',
+        'warning': '?',
+        'pending': '?'
     }
     
     CONFIG_FILE = "ui_config.json"
@@ -428,7 +429,7 @@ class EncodingConverterGUI:
         # Load saved config
         self._load_ui_config()
         
-        self.root.title("æ–‡ä»¶ç¼–ç è½¬æ¢å·¥å…·")
+        self.root.title("ÎÄ¼ş±àÂë×ª»»¹¤¾ß")
         self.root.geometry(self._scale_size("1400x900"))
         self.root.minsize(*self._scale_size_tuple(1000, 650))
         self.root.configure(bg=self.COLORS['background'])
@@ -586,7 +587,7 @@ class EncodingConverterGUI:
         self.widgets['header'] = header
         
         # Title with SF Pro style
-        title = tk.Label(header, text="æ–‡ä»¶ç¼–ç è½¬æ¢å·¥å…·", 
+        title = tk.Label(header, text="ÎÄ¼ş±àÂë×ª»»¹¤¾ß", 
                         bg=self.COLORS['background'],
                         fg=self.COLORS['text'],
                         font=self._get_font(15, "bold"))
@@ -602,93 +603,93 @@ class EncodingConverterGUI:
     
     def _create_toolbar(self):
         """Create macOS style toolbar with card layout"""
-        # ä¸»å·¥å…·æ å®¹å™¨
+        # Ö÷¹¤¾ßÀ¸ÈİÆ÷
         toolbar = tk.Frame(self.root, bg=self.COLORS['background'])
         toolbar.pack(fill=tk.X, padx=self._scale_int(20), pady=self._scale_int(5))
         self.widgets['toolbar'] = toolbar
         
-        # å¡ç‰‡å®¹å™¨
+        # ¿¨Æ¬ÈİÆ÷
         card = tk.Frame(toolbar, bg=self.COLORS['card_bg'], 
                        padx=self._scale_int(16), pady=self._scale_int(12))
         card.pack(fill=tk.X)
         
-        # ç¬¬ä¸€è¡Œï¼šæ–‡ä»¶æ“ä½œ
+        # µÚÒ»ĞĞ£ºÎÄ¼ş²Ù×÷
         row1 = tk.Frame(card, bg=self.COLORS['card_bg'])
         row1.pack(fill=tk.X, pady=self._scale_int(4))
         
-        tk.Label(row1, text="æ–‡ä»¶", bg=self.COLORS['card_bg'],
+        tk.Label(row1, text="ÎÄ¼ş", bg=self.COLORS['card_bg'],
                 fg=self.COLORS['text_secondary'],
                 font=self._get_font(10, "bold")).pack(side=tk.LEFT)
         
-        MacOSButton(row1, text="é€‰æ‹©æ–‡ä»¶", icon=self.ICONS['file'],
+        MacOSButton(row1, text="Ñ¡ÔñÎÄ¼ş", icon=self.ICONS['file'],
                    command=self._select_files,
                    bg_color=self.COLORS['primary'],
                    hover_color=self.COLORS['primary_dark'],
                    width=self._scale_int(110), height=self._scale_int(28),
                    font_size=self.font_size).pack(side=tk.LEFT, padx=self._scale_int(12))
         
-        MacOSButton(row1, text="é€‰æ‹©æ–‡ä»¶å¤¹", icon=self.ICONS['folder'],
+        MacOSButton(row1, text="Ñ¡ÔñÎÄ¼ş¼Ğ", icon=self.ICONS['folder'],
                    command=self._select_directory,
                    bg_color=self.COLORS['primary'],
                    hover_color=self.COLORS['primary_dark'],
                    width=self._scale_int(120), height=self._scale_int(28),
                    font_size=self.font_size).pack(side=tk.LEFT, padx=self._scale_int(6))
         
-        MacOSButton(row1, text="æ¸…ç©º", icon=self.ICONS['clear'],
+        MacOSButton(row1, text="Çå¿Õ", icon=self.ICONS['clear'],
                    command=self._clear_list,
                    bg_color=self.COLORS['error'],
                    hover_color=self.COLORS['error_dark'],
                    width=self._scale_int(80), height=self._scale_int(28),
                    font_size=self.font_size).pack(side=tk.LEFT, padx=self._scale_int(6))
         
-        # åˆ†éš”çº¿
+        # ·Ö¸ôÏß
         tk.Frame(card, bg=self.COLORS['border'], height=1).pack(fill=tk.X, pady=self._scale_int(8))
         
-        # ç¬¬äºŒè¡Œï¼šæ“ä½œ
+        # µÚ¶şĞĞ£º²Ù×÷
         row2 = tk.Frame(card, bg=self.COLORS['card_bg'])
         row2.pack(fill=tk.X, pady=self._scale_int(4))
         
-        tk.Label(row2, text="æ“ä½œ", bg=self.COLORS['card_bg'],
+        tk.Label(row2, text="²Ù×÷", bg=self.COLORS['card_bg'],
                 fg=self.COLORS['text_secondary'],
                 font=self._get_font(10, "bold")).pack(side=tk.LEFT)
         
-        MacOSButton(row2, text="æ£€æµ‹ç¼–ç ", icon=self.ICONS['detect'],
+        MacOSButton(row2, text="¼ì²â±àÂë", icon=self.ICONS['detect'],
                    command=self._detect_selected,
                    bg_color=self.COLORS['success'],
                    hover_color=self.COLORS['success_dark'],
                    width=self._scale_int(110), height=self._scale_int(28),
                    font_size=self.font_size).pack(side=tk.LEFT, padx=self._scale_int(12))
         
-        MacOSButton(row2, text="è½¬æ¢ç¼–ç ", icon=self.ICONS['convert'],
+        MacOSButton(row2, text="×ª»»±àÂë", icon=self.ICONS['convert'],
                    command=self._convert_selected,
                    bg_color=self.COLORS['success'],
                    hover_color=self.COLORS['success_dark'],
                    width=self._scale_int(110), height=self._scale_int(28),
                    font_size=self.font_size).pack(side=tk.LEFT, padx=self._scale_int(6))
         
-        MacOSButton(row2, text="å…¨é€‰", icon=self.ICONS['select_all'],
+        MacOSButton(row2, text="È«Ñ¡", icon=self.ICONS['select_all'],
                    command=self._select_all,
                    bg_color=self.COLORS['primary'],
                    hover_color=self.COLORS['primary_dark'],
                    width=self._scale_int(80), height=self._scale_int(28),
                    font_size=self.font_size, is_secondary=True).pack(side=tk.LEFT, padx=self._scale_int(20))
         
-        MacOSButton(row2, text="å–æ¶ˆ", icon=self.ICONS['deselect'],
+        MacOSButton(row2, text="È¡Ïû", icon=self.ICONS['deselect'],
                    command=self._deselect_all,
                    bg_color=self.COLORS['primary'],
                    hover_color=self.COLORS['primary_dark'],
                    width=self._scale_int(80), height=self._scale_int(28),
                    font_size=self.font_size, is_secondary=True).pack(side=tk.LEFT, padx=self._scale_int(6))
         
-        # å³ä¾§è®¾ç½®å’Œå¸®åŠ©æŒ‰é’®
-        MacOSButton(row2, text="è®¾ç½®", icon=self.ICONS['settings'],
+        # ÓÒ²àÉèÖÃºÍ°ïÖú°´Å¥
+        MacOSButton(row2, text="ÉèÖÃ", icon=self.ICONS['settings'],
                    command=self._show_settings,
                    bg_color=self.COLORS['text_secondary'],
                    hover_color="#636366",
                    width=self._scale_int(80), height=self._scale_int(28),
                    font_size=self.font_size, is_secondary=True).pack(side=tk.RIGHT, padx=self._scale_int(4))
         
-        MacOSButton(row2, text="å¸®åŠ©", icon=self.ICONS['help'],
+        MacOSButton(row2, text="°ïÖú", icon=self.ICONS['help'],
                    command=self._show_help,
                    bg_color=self.COLORS['text_secondary'],
                    hover_color="#636366",
@@ -701,29 +702,29 @@ class EncodingConverterGUI:
     
     def _create_file_list(self):
         """Create macOS style file list"""
-        # å¡ç‰‡å®¹å™¨
+        # ¿¨Æ¬ÈİÆ÷
         list_card = tk.Frame(self.root, bg=self.COLORS['card_bg'],
                             padx=1, pady=1)
         list_card.pack(fill=tk.BOTH, expand=True, 
                       padx=self._scale_int(20), pady=self._scale_int(10))
         
-        # æ ‡é¢˜æ 
+        # ±êÌâÀ¸
         header_frame = tk.Frame(list_card, bg=self.COLORS['card_bg'],
                                height=self._scale_int(40))
         header_frame.pack(fill=tk.X)
         header_frame.pack_propagate(False)
         
-        tk.Label(header_frame, text="æ–‡ä»¶åˆ—è¡¨", 
+        tk.Label(header_frame, text="ÎÄ¼şÁĞ±í", 
                 bg=self.COLORS['card_bg'],
                 fg=self.COLORS['text'],
                 font=self._get_font(13, "bold")).pack(side=tk.LEFT, 
                                                       padx=self._scale_int(16),
                                                       pady=self._scale_int(8))
         
-        # åˆ†éš”çº¿
+        # ·Ö¸ôÏß
         tk.Frame(list_card, bg=self.COLORS['border'], height=1).pack(fill=tk.X)
         
-        # åˆ—è¡¨å®¹å™¨
+        # ÁĞ±íÈİÆ÷
         inner_frame = tk.Frame(list_card, bg=self.COLORS['card_bg'])
         inner_frame.pack(fill=tk.BOTH, expand=True, padx=1, pady=1)
         
@@ -733,12 +734,12 @@ class EncodingConverterGUI:
                                 selectmode='extended', style="Custom.Treeview")
         
         # Set columns
-        self.tree.heading('filename', text='æ–‡ä»¶å')
-        self.tree.heading('filepath', text='è·¯å¾„')
-        self.tree.heading('encoding', text='ç¼–ç ')
-        self.tree.heading('confidence', text='ç½®ä¿¡åº¦')
-        self.tree.heading('size', text='å¤§å°')
-        self.tree.heading('status', text='çŠ¶æ€')
+        self.tree.heading('filename', text='ÎÄ¼şÃû')
+        self.tree.heading('filepath', text='Â·¾¶')
+        self.tree.heading('encoding', text='±àÂë')
+        self.tree.heading('confidence', text='ÖÃĞÅ¶È')
+        self.tree.heading('size', text='´óĞ¡')
+        self.tree.heading('status', text='×´Ì¬')
         
         self.tree.column('filename', width=self._scale_int(180), minwidth=self._scale_int(120))
         self.tree.column('filepath', width=self._scale_int(350), minwidth=self._scale_int(200))
@@ -770,17 +771,17 @@ class EncodingConverterGUI:
     
     def _create_options_panel(self):
         """Create macOS style options panel"""
-        # å¡ç‰‡å®¹å™¨
+        # ¿¨Æ¬ÈİÆ÷
         options_card = tk.Frame(self.root, bg=self.COLORS['card_bg'])
         options_card.pack(fill=tk.X, padx=self._scale_int(20), pady=self._scale_int(5))
         
-        # å†…è¾¹è·
+        # ÄÚ±ß¾à
         inner = tk.Frame(options_card, bg=self.COLORS['card_bg'],
                         padx=self._scale_int(16), pady=self._scale_int(12))
         inner.pack(fill=tk.X)
         
-        # ç›®æ ‡ç¼–ç 
-        tk.Label(inner, text="ç›®æ ‡ç¼–ç ", 
+        # Ä¿±ê±àÂë
+        tk.Label(inner, text="Ä¿±ê±àÂë", 
                 bg=self.COLORS['card_bg'],
                 fg=self.COLORS['text_secondary'],
                 font=self._get_font(10, "bold")).pack(side=tk.LEFT)
@@ -793,23 +794,23 @@ class EncodingConverterGUI:
                                      font=self._get_font(12))
         encoding_combo.pack(side=tk.LEFT, padx=self._scale_int(12))
         
-        # åˆ†éš”çº¿
+        # ·Ö¸ôÏß
         tk.Frame(inner, bg=self.COLORS['border'], width=1).pack(side=tk.LEFT, 
                                                                 fill=tk.Y, 
                                                                 padx=self._scale_int(16))
         
         # Options checkboxes with macOS style
         self.backup_var = tk.BooleanVar(value=True)
-        self._create_checkbox(inner, " å¤‡ä»½åŸæ–‡ä»¶", self.backup_var)
+        self._create_checkbox(inner, " ±¸·İÔ­ÎÄ¼ş", self.backup_var)
         
         self.overwrite_var = tk.BooleanVar(value=True)
-        self._create_checkbox(inner, " è¦†ç›–åŸæ–‡ä»¶", self.overwrite_var)
+        self._create_checkbox(inner, " ¸²¸ÇÔ­ÎÄ¼ş", self.overwrite_var)
         
         self.recursive_var = tk.BooleanVar(value=True)
-        self._create_checkbox(inner, " é€’å½’æ‰«æå­æ–‡ä»¶å¤¹", self.recursive_var)
+        self._create_checkbox(inner, " µİ¹éÉ¨Ãè×ÓÎÄ¼ş¼Ğ", self.recursive_var)
         
-        # æ‰¹é‡è½¬æ¢æŒ‰é’®
-        MacOSButton(inner, text="æ‰¹é‡è½¬æ¢", icon=self.ICONS['batch'],
+        # ÅúÁ¿×ª»»°´Å¥
+        MacOSButton(inner, text="ÅúÁ¿×ª»»", icon=self.ICONS['batch'],
                    command=self._batch_convert,
                    bg_color=self.COLORS['warning'],
                    hover_color=self.COLORS['warning_dark'],
@@ -821,7 +822,7 @@ class EncodingConverterGUI:
         cb_frame = tk.Frame(parent, bg=self.COLORS['card_bg'])
         cb_frame.pack(side=tk.LEFT, padx=self._scale_int(12))
         
-        # ä½¿ç”¨ç³»ç»Ÿé£æ ¼å¤é€‰æ¡†
+        # Ê¹ÓÃÏµÍ³·ç¸ñ¸´Ñ¡¿ò
         cb = tk.Checkbutton(cb_frame, text=text, variable=variable,
                            bg=self.COLORS['card_bg'],
                            fg=self.COLORS['text'],
@@ -834,28 +835,28 @@ class EncodingConverterGUI:
     
     def _create_log_panel(self):
         """Create macOS style log panel"""
-        # å¡ç‰‡å®¹å™¨
+        # ¿¨Æ¬ÈİÆ÷
         log_card = tk.Frame(self.root, bg=self.COLORS['card_bg'])
         log_card.pack(fill=tk.BOTH, expand=False, 
                      padx=self._scale_int(20), pady=self._scale_int(10))
         
-        # æ ‡é¢˜æ 
+        # ±êÌâÀ¸
         header_frame = tk.Frame(log_card, bg=self.COLORS['card_bg'],
                                height=self._scale_int(36))
         header_frame.pack(fill=tk.X)
         header_frame.pack_propagate(False)
         
-        tk.Label(header_frame, text="æ—¥å¿—è¾“å‡º", 
+        tk.Label(header_frame, text="ÈÕÖ¾Êä³ö", 
                 bg=self.COLORS['card_bg'],
                 fg=self.COLORS['text'],
                 font=self._get_font(12, "bold")).pack(side=tk.LEFT, 
                                                       padx=self._scale_int(16),
                                                       pady=self._scale_int(8))
         
-        # åˆ†éš”çº¿
+        # ·Ö¸ôÏß
         tk.Frame(log_card, bg=self.COLORS['border'], height=1).pack(fill=tk.X)
         
-        # æ—¥å¿—æ–‡æœ¬åŒºåŸŸ
+        # ÈÕÖ¾ÎÄ±¾ÇøÓò
         inner_frame = tk.Frame(log_card, bg=self.COLORS['card_bg'])
         inner_frame.pack(fill=tk.BOTH, expand=True, padx=1, pady=1)
         
@@ -892,7 +893,7 @@ class EncodingConverterGUI:
         self.widgets['status_bar'] = status_frame
         
         # Status message
-        self.status_var = tk.StringVar(value=f"{self.ICONS['info']} å°±ç»ª")
+        self.status_var = tk.StringVar(value=f"{self.ICONS['info']} ¾ÍĞ÷")
         status_label = tk.Label(status_frame, textvariable=self.status_var,
                                bg=self.COLORS['background'],
                                fg=self.COLORS['text_secondary'],
@@ -900,7 +901,7 @@ class EncodingConverterGUI:
         status_label.pack(side=tk.LEFT, padx=self._scale_int(20))
         
         # Statistics
-        self.stats_var = tk.StringVar(value="æ–‡ä»¶: 0 | å·²é€‰: 0")
+        self.stats_var = tk.StringVar(value="ÎÄ¼ş: 0 | ÒÑÑ¡: 0")
         stats_label = tk.Label(status_frame, textvariable=self.stats_var,
                               bg=self.COLORS['background'],
                               fg=self.COLORS['text_secondary'],
@@ -940,35 +941,35 @@ class EncodingConverterGUI:
         """Update statistics"""
         total = len(self.file_list)
         selected = len(self.selected_files)
-        self.stats_var.set(f"æ–‡ä»¶: {total} | å·²é€‰: {selected}")
+        self.stats_var.set(f"ÎÄ¼ş: {total} | ÒÑÑ¡: {selected}")
     
     def _select_files(self):
         """Select files"""
         files = filedialog.askopenfilenames(
-            title="é€‰æ‹©æ–‡ä»¶",
+            title="Ñ¡ÔñÎÄ¼ş",
             filetypes=[
-                ("æ‰€æœ‰æ–‡ä»¶", "*.*"),
-                ("æ–‡æœ¬æ–‡ä»¶", "*.txt"),
-                ("Pythonæ–‡ä»¶", "*.py"),
-                ("ä»£ç æ–‡ä»¶", "*.c;*.cpp;*.h;*.java;*.js;*.ts"),
-                ("ç½‘é¡µæ–‡ä»¶", "*.html;*.htm;*.css"),
-                ("é…ç½®æ–‡ä»¶", "*.xml;*.json;*.yaml;*.ini"),
+                ("ËùÓĞÎÄ¼ş", "*.*"),
+                ("ÎÄ±¾ÎÄ¼ş", "*.txt"),
+                ("PythonÎÄ¼ş", "*.py"),
+                ("´úÂëÎÄ¼ş", "*.c;*.cpp;*.h;*.java;*.js;*.ts"),
+                ("ÍøÒ³ÎÄ¼ş", "*.html;*.htm;*.css"),
+                ("ÅäÖÃÎÄ¼ş", "*.xml;*.json;*.yaml;*.ini"),
             ]
         )
         
         if files:
             for file_path in files:
                 self._add_file(file_path)
-            self._log(f"å·²æ·»åŠ  {len(files)} ä¸ªæ–‡ä»¶", "SUCCESS")
+            self._log(f"ÒÑÌí¼Ó {len(files)} ¸öÎÄ¼ş", "SUCCESS")
             self._update_stats()
     
     def _select_directory(self):
         """Select directory"""
-        directory = filedialog.askdirectory(title="é€‰æ‹©æ–‡ä»¶å¤¹")
+        directory = filedialog.askdirectory(title="Ñ¡ÔñÎÄ¼ş¼Ğ")
         
         if directory:
-            self._update_status("æ­£åœ¨æ‰«ææ–‡ä»¶å¤¹...", "pending")
-            self._log(f"æ­£åœ¨æ‰«ææ–‡ä»¶å¤¹: {directory}")
+            self._update_status("ÕıÔÚÉ¨ÃèÎÄ¼ş¼Ğ...", "pending")
+            self._log(f"ÕıÔÚÉ¨ÃèÎÄ¼ş¼Ğ: {directory}")
             
             # Scan in background thread
             def scan():
@@ -988,8 +989,8 @@ class EncodingConverterGUI:
         for file_info in files:
             self._add_file_info(file_info)
         
-        self._update_status(f"æ‰«æå®Œæˆï¼Œæ‰¾åˆ° {len(files)} ä¸ªæ–‡ä»¶", "success")
-        self._log(f"æ–‡ä»¶å¤¹æ‰«æå®Œæˆï¼Œæ‰¾åˆ° {len(files)} ä¸ªæ–‡æœ¬æ–‡ä»¶", "SUCCESS")
+        self._update_status(f"É¨ÃèÍê³É£¬ÕÒµ½ {len(files)} ¸öÎÄ¼ş", "success")
+        self._log(f"ÎÄ¼ş¼ĞÉ¨ÃèÍê³É£¬ÕÒµ½ {len(files)} ¸öÎÄ±¾ÎÄ¼ş", "SUCCESS")
         self._update_stats()
     
     def _add_file(self, file_path: str):
@@ -1008,7 +1009,7 @@ class EncodingConverterGUI:
             'encoding': encoding,
             'confidence': confidence,
             'size': os.path.getsize(file_path),
-            'status': 'å¾…å¤„ç†'
+            'status': '´ı´¦Àí'
         }
         
         self._add_file_info(file_info)
@@ -1030,7 +1031,7 @@ class EncodingConverterGUI:
             file_info['encoding'],
             confidence_str,
             size_str,
-            file_info.get('status', 'å¾…å¤„ç†')
+            file_info.get('status', '´ı´¦Àí')
         ))
         
         file_info['item_id'] = item_id
@@ -1050,7 +1051,7 @@ class EncodingConverterGUI:
         for item in self.tree.get_children():
             self.tree.delete(item)
         self._update_stats()
-        self._log("å·²æ¸…ç©ºæ–‡ä»¶åˆ—è¡¨", "WARNING")
+        self._log("ÒÑÇå¿ÕÎÄ¼şÁĞ±í", "WARNING")
     
     def _on_select(self, event=None):
         """Selection event handler"""
@@ -1073,7 +1074,7 @@ class EncodingConverterGUI:
             item = selection[0]
             values = self.tree.item(item, 'values')
             if values:
-                self._log(f"æŸ¥çœ‹æ–‡ä»¶: {values[1]}")
+                self._log(f"²é¿´ÎÄ¼ş: {values[1]}")
     
     def _select_all(self):
         """Select all"""
@@ -1088,10 +1089,10 @@ class EncodingConverterGUI:
     def _detect_selected(self):
         """Detect encoding for selected files"""
         if not self.selected_files:
-            messagebox.showwarning("è­¦å‘Š", "è¯·é€‰æ‹©è¦æ£€æµ‹çš„æ–‡ä»¶")
+            messagebox.showwarning("¾¯¸æ", "ÇëÑ¡ÔñÒª¼ì²âµÄÎÄ¼ş")
             return
         
-        self._update_status("æ­£åœ¨æ£€æµ‹ç¼–ç ...", "pending")
+        self._update_status("ÕıÔÚ¼ì²â±àÂë...", "pending")
         
         def detect():
             for idx in list(self.selected_files):
@@ -1101,14 +1102,14 @@ class EncodingConverterGUI:
                 # Update data
                 file_info['encoding'] = encoding
                 file_info['confidence'] = confidence
-                file_info['status'] = 'å·²æ£€æµ‹'
+                file_info['status'] = 'ÒÑ¼ì²â'
                 
                 # Update UI
                 self.root.after(0, lambda i=idx, e=encoding, c=confidence: 
                     self._update_file_item(i, e, c))
             
-            self.root.after(0, lambda: self._update_status("ç¼–ç æ£€æµ‹å®Œæˆ", "success"))
-            self.root.after(0, lambda: self._log("ç¼–ç æ£€æµ‹å®Œæˆ", "SUCCESS"))
+            self.root.after(0, lambda: self._update_status("±àÂë¼ì²âÍê³É", "success"))
+            self.root.after(0, lambda: self._log("±àÂë¼ì²âÍê³É", "SUCCESS"))
         
         threading.Thread(target=detect, daemon=True).start()
     
@@ -1126,13 +1127,13 @@ class EncodingConverterGUI:
                 encoding,
                 confidence_str,
                 self._format_size(file_info['size']),
-                'å·²æ£€æµ‹'
+                'ÒÑ¼ì²â'
             ))
     
     def _convert_selected(self):
         """Convert encoding for selected files"""
         if not self.selected_files:
-            messagebox.showwarning("è­¦å‘Š", "è¯·é€‰æ‹©è¦è½¬æ¢çš„æ–‡ä»¶")
+            messagebox.showwarning("¾¯¸æ", "ÇëÑ¡ÔñÒª×ª»»µÄÎÄ¼ş")
             return
         
         target = self.target_encoding.get()
@@ -1141,11 +1142,11 @@ class EncodingConverterGUI:
         
         # Confirm dialog
         count = len(self.selected_files)
-        if not messagebox.askyesno("ç¡®è®¤", f"æ˜¯å¦å°† {count} ä¸ªæ–‡ä»¶è½¬æ¢ä¸º {target} ç¼–ç ?"):
+        if not messagebox.askyesno("È·ÈÏ", f"ÊÇ·ñ½« {count} ¸öÎÄ¼ş×ª»»Îª {target} ±àÂë?"):
             return
         
-        self._update_status("æ­£åœ¨è½¬æ¢...", "pending")
-        self._log(f"æ­£åœ¨è½¬æ¢ {count} ä¸ªæ–‡ä»¶åˆ° {target} ç¼–ç ...")
+        self._update_status("ÕıÔÚ×ª»»...", "pending")
+        self._log(f"ÕıÔÚ×ª»» {count} ¸öÎÄ¼şµ½ {target} ±àÂë...")
         
         def convert():
             success_count = 0
@@ -1163,11 +1164,11 @@ class EncodingConverterGUI:
                 
                 if success:
                     success_count += 1
-                    file_info['status'] = 'å·²è½¬æ¢'
+                    file_info['status'] = 'ÒÑ×ª»»'
                     level = "SUCCESS"
                 else:
                     fail_count += 1
-                    file_info['status'] = 'å¤±è´¥'
+                    file_info['status'] = 'Ê§°Ü'
                     level = "ERROR"
                 
                 # Update UI
@@ -1176,10 +1177,10 @@ class EncodingConverterGUI:
                     self._update_file_status(i, s))
             
             # Completion message
-            final_msg = f"è½¬æ¢å®Œæˆ: {success_count} æˆåŠŸ, {fail_count} å¤±è´¥"
+            final_msg = f"×ª»»Íê³É: {success_count} ³É¹¦, {fail_count} Ê§°Ü"
             self.root.after(0, lambda: self._update_status(final_msg, "success" if fail_count == 0 else "warning"))
             self.root.after(0, lambda: self._log(final_msg, "SUCCESS" if fail_count == 0 else "WARNING"))
-            self.root.after(0, lambda: messagebox.showinfo("å®Œæˆ", final_msg))
+            self.root.after(0, lambda: messagebox.showinfo("Íê³É", final_msg))
         
         threading.Thread(target=convert, daemon=True).start()
     
@@ -1203,7 +1204,7 @@ class EncodingConverterGUI:
     def _batch_convert(self):
         """Batch convert all files"""
         if not self.file_list:
-            messagebox.showwarning("è­¦å‘Š", "æ–‡ä»¶åˆ—è¡¨ä¸ºç©º")
+            messagebox.showwarning("¾¯¸æ", "ÎÄ¼şÁĞ±íÎª¿Õ")
             return
         
         target = self.target_encoding.get()
@@ -1212,11 +1213,11 @@ class EncodingConverterGUI:
         
         # Confirm dialog
         count = len(self.file_list)
-        if not messagebox.askyesno("ç¡®è®¤", f"æ˜¯å¦å°†æ‰€æœ‰ {count} ä¸ªæ–‡ä»¶è½¬æ¢ä¸º {target} ç¼–ç ?"):
+        if not messagebox.askyesno("È·ÈÏ", f"ÊÇ·ñ½«ËùÓĞ {count} ¸öÎÄ¼ş×ª»»Îª {target} ±àÂë?"):
             return
         
-        self._update_status("æ­£åœ¨æ‰¹é‡è½¬æ¢...", "pending")
-        self._log(f"æ­£åœ¨æ‰¹é‡è½¬æ¢ {count} ä¸ªæ–‡ä»¶åˆ° {target} ç¼–ç ...")
+        self._update_status("ÕıÔÚÅúÁ¿×ª»»...", "pending")
+        self._log(f"ÕıÔÚÅúÁ¿×ª»» {count} ¸öÎÄ¼şµ½ {target} ±àÂë...")
         
         def convert_all():
             success_count = 0
@@ -1232,11 +1233,11 @@ class EncodingConverterGUI:
                 
                 if success:
                     success_count += 1
-                    file_info['status'] = 'å·²è½¬æ¢'
+                    file_info['status'] = 'ÒÑ×ª»»'
                     level = "SUCCESS"
                 else:
                     fail_count += 1
-                    file_info['status'] = 'å¤±è´¥'
+                    file_info['status'] = 'Ê§°Ü'
                     level = "ERROR"
                 
                 # Update UI
@@ -1245,58 +1246,58 @@ class EncodingConverterGUI:
                     self._update_file_status(i, s))
             
             # Completion message
-            final_msg = f"æ‰¹é‡è½¬æ¢å®Œæˆ: {success_count} æˆåŠŸ, {fail_count} å¤±è´¥"
+            final_msg = f"ÅúÁ¿×ª»»Íê³É: {success_count} ³É¹¦, {fail_count} Ê§°Ü"
             self.root.after(0, lambda: self._update_status(final_msg, "success" if fail_count == 0 else "warning"))
             self.root.after(0, lambda: self._log(final_msg, "SUCCESS" if fail_count == 0 else "WARNING"))
-            self.root.after(0, lambda: messagebox.showinfo("å®Œæˆ", final_msg))
+            self.root.after(0, lambda: messagebox.showinfo("Íê³É", final_msg))
         
         threading.Thread(target=convert_all, daemon=True).start()
     
     def _show_help(self):
         """Show help dialog"""
-        help_text = """æ–‡ä»¶ç¼–ç è½¬æ¢å·¥å…· - ä½¿ç”¨å¸®åŠ©
+        help_text = """ÎÄ¼ş±àÂë×ª»»¹¤¾ß - Ê¹ÓÃ°ïÖú
 
-åŠŸèƒ½ç‰¹æ€§:
-1. æ–‡ä»¶é€‰æ‹©
-   - é€‰æ‹©æ–‡ä»¶: é€‰æ‹©ä¸€ä¸ªæˆ–å¤šä¸ªæ–‡ä»¶
-   - é€‰æ‹©æ–‡ä»¶å¤¹: æ‰«ææ–‡ä»¶å¤¹ä¸­çš„æ‰€æœ‰æ–‡æœ¬æ–‡ä»¶
+¹¦ÄÜÌØĞÔ:
+1. ÎÄ¼şÑ¡Ôñ
+   - Ñ¡ÔñÎÄ¼ş: Ñ¡ÔñÒ»¸ö»ò¶à¸öÎÄ¼ş
+   - Ñ¡ÔñÎÄ¼ş¼Ğ: É¨ÃèÎÄ¼ş¼ĞÖĞµÄËùÓĞÎÄ±¾ÎÄ¼ş
 
-2. ç¼–ç æ£€æµ‹
-   - è‡ªåŠ¨æ£€æµ‹æ–‡ä»¶ç¼–ç 
-   - æ˜¾ç¤ºæ£€æµ‹ç½®ä¿¡åº¦
+2. ±àÂë¼ì²â
+   - ×Ô¶¯¼ì²âÎÄ¼ş±àÂë
+   - ÏÔÊ¾¼ì²âÖÃĞÅ¶È
 
-3. ç¼–ç è½¬æ¢
-   - è½¬æ¢ä¸ºå¤šç§ç¼–ç æ ¼å¼
-   - å¤‡ä»½åŸæ–‡ä»¶
-   - è¦†ç›–æˆ–åˆ›å»ºæ–°æ–‡ä»¶
+3. ±àÂë×ª»»
+   - ×ª»»Îª¶àÖÖ±àÂë¸ñÊ½
+   - ±¸·İÔ­ÎÄ¼ş
+   - ¸²¸Ç»ò´´½¨ĞÂÎÄ¼ş
 
-æ”¯æŒçš„ç›®æ ‡ç¼–ç :
-- UTF-8 / UTF-8-SIG (å¸¦BOM)
-- GBK / GB2312 / GB18030 (ä¸­æ–‡ç¼–ç )
-- BIG5 (ç¹ä½“ä¸­æ–‡)
-- UTF-16 / UTF-32 (å„ç§å­—èŠ‚åº)
+Ö§³ÖµÄÄ¿±ê±àÂë:
+- UTF-8 / UTF-8-SIG (´øBOM)
+- GBK / GB2312 / GB18030 (ÖĞÎÄ±àÂë)
+- BIG5 (·±ÌåÖĞÎÄ)
+- UTF-16 / UTF-32 (¸÷ÖÖ×Ö½ÚĞò)
 - ISO-8859-1 / WINDOWS-1252
 - SHIFT_JIS / EUC-JP / EUC-KR
 
-å¿«æ·é”®:
-- Ctrl+O: é€‰æ‹©æ–‡ä»¶
-- Ctrl+D: é€‰æ‹©æ–‡ä»¶å¤¹
-- F5: æ£€æµ‹ç¼–ç 
-- F6: è½¬æ¢ç¼–ç 
-- Ctrl+A: å…¨é€‰
+¿ì½İ¼ü:
+- Ctrl+O: Ñ¡ÔñÎÄ¼ş
+- Ctrl+D: Ñ¡ÔñÎÄ¼ş¼Ğ
+- F5: ¼ì²â±àÂë
+- F6: ×ª»»±àÂë
+- Ctrl+A: È«Ñ¡
 
-ç•Œé¢è®¾ç½®:
-- ç‚¹å‡»å·¥å…·æ "è®¾ç½®"æŒ‰é’®
-- å¯è°ƒèŠ‚å­—ä½“å¤§å°(10-20pt)
-- å¯è°ƒèŠ‚ç•Œé¢ç¼©æ”¾(80%-150%)
-- è®¾ç½®è‡ªåŠ¨ä¿å­˜
+½çÃæÉèÖÃ:
+- µã»÷¹¤¾ßÀ¸"ÉèÖÃ"°´Å¥
+- ¿Éµ÷½Ú×ÖÌå´óĞ¡(10-20pt)
+- ¿Éµ÷½Ú½çÃæËõ·Å(80%-150%)
+- ÉèÖÃ×Ô¶¯±£´æ
 
-æ³¨æ„äº‹é¡¹:
-1. è½¬æ¢å‰å»ºè®®å¤‡ä»½é‡è¦æ–‡ä»¶
-2. ç¨‹åºä¼šè‡ªåŠ¨è¿‡æ»¤äºŒè¿›åˆ¶æ–‡ä»¶
-3. ç¡®ä¿ç›®æ ‡ç¼–ç æ”¯æŒæ–‡ä»¶å†…å®¹
+×¢ÒâÊÂÏî:
+1. ×ª»»Ç°½¨Òé±¸·İÖØÒªÎÄ¼ş
+2. ³ÌĞò»á×Ô¶¯¹ıÂË¶ş½øÖÆÎÄ¼ş
+3. È·±£Ä¿±ê±àÂëÖ§³ÖÎÄ¼şÄÚÈİ
 """
-        messagebox.showinfo("å¸®åŠ©", help_text)
+        messagebox.showinfo("°ïÖú", help_text)
 
 
 def main():
