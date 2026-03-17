@@ -25,6 +25,72 @@
 pip install -r requirements.txt
 ```
 
+## 打包发布
+
+### 打包为可执行文件（Windows）
+
+使用 **PyInstaller** 将 Python 程序打包为独立的 exe 文件，客户端无需安装 Python 环境即可运行。
+
+#### 1. 安装 PyInstaller
+
+```bash
+pip install pyinstaller
+```
+
+#### 2. 打包命令
+
+**快速打包：**
+```bash
+python -m PyInstaller --onefile --windowed --name EncodingConverter --hidden-import chardet main.py
+```
+
+**使用打包脚本：**
+```bash
+python build_exe.py
+```
+
+#### 3. 打包参数说明
+
+| 参数 | 说明 |
+|------|------|
+| `--onefile` | 打包成单个 exe 文件 |
+| `--windowed` | 不显示控制台窗口（GUI程序） |
+| `--name` | 指定输出文件名 |
+| `--hidden-import chardet` | 包含编码检测库依赖 |
+| `--clean` | 清理临时文件 |
+
+#### 4. 输出文件
+
+打包完成后，可执行文件位于：
+```
+dist/EncodingConverter.exe
+```
+
+文件大小约 10-15 MB，可直接分发给用户，无需安装 Python 环境。
+
+#### 5. 发布流程
+
+1. **执行打包**
+   ```bash
+   python build_exe.py
+   ```
+
+2. **验证程序**
+   - 双击运行 `dist/EncodingConverter.exe`
+   - 测试文件选择、编码检测、转换功能
+
+3. **创建发布包**
+   ```
+   EncodingConverter-v1.0.0/
+   ├── EncodingConverter.exe
+   ├── README.md
+   └── LICENSE
+   ```
+
+4. **发布到 GitHub Releases**
+   - 压缩为 zip 文件
+   - 上传至 GitHub Releases 页面
+
 ## 使用方法
 
 ### 运行程序
